@@ -1,17 +1,120 @@
+import { Link } from "react-router-dom"
 import SkillsGrid from "../components/SkillsGrid"
 
+function Stat({ value, label }) {
+  return (
+    <div className="rounded-xl border border-secondary-30 p-4 text-center">
+      <div className="text-2xl font-bold text-primary">{value}</div>
+      <div className="text-xs uppercase tracking-wider text-secondary">{label}</div>
+    </div>
+  )
+}
+
 export default function About() {
-    return (
-      <section className="prose max-w-none">
-        <h1 className="text-primary">About</h1>
+  return (
+    <section className="space-y-10">
+      {/* Hero / Intro */}
+      <header className="grid grid-cols-1 md:grid-cols-[1fr,320px] gap-8 items-start">
+        {/* Left: Intro copy */}
+        <div className="space-y-4">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-primary">
+            About <span className="opacity-80">Me</span>
+          </h1>
+          <p className="text-secondary leading-relaxed">
+            I’m a software dev with skills in all departments and technologies. On this site you can see all of my projects incuding an example e-commerce, buissness website and gym membership
+            mangement software. My focus as a professional is useability, performance, security, and polished with tidy UX. I aim to get your project done within 5 weeks (depending on size and scope)
+            without cutting corners.
+          </p>
+          <div className="flex flex-wrap gap-3 pt-1">
+            <a
+              href="/cv.pdf"
+              className="rounded-md px-4 py-2 text-sm text-white bg-accent hover:opacity-90"
+            >
+              Download CV
+            </a>
+            <Link
+              to="/contact"
+              className="rounded-md px-4 py-2 text-sm border border-secondary text-primary hover:bg-muted"
+            >
+              Contact
+            </Link>
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md px-4 py-2 text-sm border border-secondary text-primary hover:bg-muted"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </header>
+
+      {/* Skills */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold text-primary">Skills</h2>
         <p className="text-secondary">
-          I’m a React/Node developer focused on MVPs, e-commerce, and clean admin dashboards. I care about performance,
-          security, and accessibility.
+          A practical toolbelt for building, deploying, and maintaining modern web apps.
         </p>
-        <h2 className="text-primary">Skills</h2>
         <SkillsGrid />
-        <h2 className="text-primary">Currently</h2>
-        <p className="text-secondary">Open to developer roles and freelance work. Based in the UK but im open to relocate to any corner of the world; remote-friendly.</p>
       </section>
-    )
-  }
+
+      {/* Services / What I do */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold text-primary">What I Do</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            {
+              title: "MVPs & Prototypes",
+              text: "Ship a scoped MVP fast with auth, payments, and an admin dashboard.",
+              bullets: ["Auth & roles", "Stripe payments", "Postgres/Prisma"],
+            },
+            {
+              title: "E-commerce",
+              text: "Responsive storefronts and back-office dashboards that convert.",
+              bullets: ["Product/catalog", "Checkout & webhooks", "Analytics"],
+            },
+            {
+              title: "Dashboards",
+              text: "Clean, accessible dashboards with charts and real-time updates.",
+              bullets: ["REST/GraphQL", "Caching", "A11y & perf"],
+            },
+          ].map((card) => (
+            <div key={card.title} className="rounded-xl border border-secondary-30 p-5 bg-white">
+              <div className="font-semibold text-primary">{card.title}</div>
+              <p className="text-sm text-secondary mt-2">{card.text}</p>
+              <ul className="mt-3 space-y-1 text-sm text-secondary">
+                {card.bullets.map((b) => (
+                  <li key={b} className="flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent inline-block" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Availability / CTA */}
+      <section className="rounded-2xl border border-secondary-30 p-6 bg-white/70">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-semibold text-primary">Currently</h3>
+            <p className="text-secondary">
+              Open to developer roles and freelance work. UK-based, open to relocate or work remote.
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <Link to="/projects" className="rounded-md px-4 py-2 text-sm border border-secondary text-primary hover:bg-muted">
+              View Projects
+            </Link>
+            <Link to="/contact" className="rounded-md px-4 py-2 text-sm text-white bg-accent hover:opacity-90">
+              Book Intro Call
+            </Link>
+          </div>
+        </div>
+      </section>
+    </section>
+  )
+}
