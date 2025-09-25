@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+/* Theme vars */
+:root {
+  --primary: #111827;
+  --secondary: #374151;
+  --accent: #3B82F6;
+  --page: #ffffff;      /* gets overwritten by ThemeProvider */
+  --muted: #F3F4F6;
+}
+
+html, body, #root { height: 100%; }
+
+/* Make default text/background follow the theme */
+body {
+  background: var(--page);
+  color: var(--primary);
+}
+
+/* Semantic utilities so components react to theme */
+.bg-page        { background-color: var(--page); }
+.bg-primary     { background-color: var(--primary); }
+.bg-accent      { background-color: var(--accent); }
+.bg-muted       { background-color: var(--muted); }
+
+.text-primary   { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+
+.border-primary   { border-color: var(--primary); }
+.border-secondary { border-color: var(--secondary); }
+.border-secondary-30 { border-color: color-mix(in oklab, var(--secondary) 30%, transparent); }
+
+/* Container helper */
+.container-default {
+  margin-left: auto; margin-right: auto;
+  max-width: 72rem; padding-left: 1rem; padding-right: 1rem;
+}
