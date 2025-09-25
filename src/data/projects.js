@@ -16,7 +16,7 @@ export const projects = [
       repo: "#",
     },
     {
-      title: "Aesthetics Booking Platform",
+      title: "BIB Booking App",
       summary: "Client bookings, treatment catalog, reminders, mobile-friendly UI.",
       tech: ["React", "Node", "Express", "PostgreSQL", "Tailwind"],
       image: "",

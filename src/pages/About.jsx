@@ -1,3 +1,5 @@
+import SkillsGrid from "../components/SkillsGrid"
+
 export default function About() {
     return (
       <section className="prose max-w-none">
@@ -7,14 +9,9 @@ export default function About() {
           security, and accessibility.
         </p>
         <h2 className="text-primary">Skills</h2>
-        <ul className="text-secondary">
-          <li>Frontend: React, React Router, Tailwind</li>
-          <li>Backend: Node, Express, PostgreSQL, Prisma</li>
-          <li>Payments/Auth: Stripe, JWT, role-based access</li>
-          <li>Tooling: Vite, Jest, GitHub, Render/Vercel</li>
-        </ul>
+        <SkillsGrid />
         <h2 className="text-primary">Currently</h2>
-        <p className="text-secondary">Open to junior developer roles and freelance work. Based in the UK; remote-friendly.</p>
+        <p className="text-secondary">Open to developer roles and freelance work. Based in the UK but im open to relocate to any corner of the world; remote-friendly.</p>
       </section>
     )
   }
