@@ -72,7 +72,7 @@ export default function Contact() {
       {/* status */}
       {status.ok && (
         <div className="mt-4 rounded-md border border-secondary-30 bg-muted p-3 text-sm text-primary">
-          Your email draft should be open now. If not, I copied the message to your clipboard—paste it into an email.
+          {status.error ? status.error : "Message sent successfully! I'll get back to you within 24-48 hours."}
         </div>
       )}
       {status.error && (
@@ -147,7 +147,7 @@ export default function Contact() {
 
       <div className="mt-6 text-sm text-secondary">
         Prefer direct?{" "}
-        <a className="underline text-primary" href="mailto:cmcgaughey2000@icloud.com">cmcgaughey2000@icloud.com</a>
+        <a className="underline text-primary" href="mailto:gaughey2000@protonmail.com">gaughey2000@protonmail.com</a>
       </div>
 
       <p className="text-xs text-secondary mt-4">
