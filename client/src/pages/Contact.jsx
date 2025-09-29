@@ -63,96 +63,141 @@ export default function Contact() {
   }
 
   return (
-    <section className="max-w-xl">
-      <h1 className="text-2xl font-semibold text-primary">Contact</h1>
-      <p className="text-secondary mt-2">
-        Drop a message about roles or projects. I aim to reply within 24–48 hours.
-      </p>
-
-      {/* status */}
-      {status.ok && (
-        <div className="mt-4 rounded-md border border-secondary-30 bg-muted p-3 text-sm text-primary">
-          {status.error ? status.error : "Message sent successfully! I'll get back to you within 24-48 hours."}
-        </div>
-      )}
-      {status.error && (
-        <div className="mt-4 rounded-md border border-secondary-30 p-3 text-sm text-primary">
-          {status.error}
-        </div>
-      )}
-
-      <form className="mt-6 space-y-4" onSubmit={handleSubmit} noValidate>
-        {/* Honeypot */}
-        <input
-          type="text"
-          name="website"
-          value={values.website}
-          onChange={onChange}
-          className="hidden"
-          tabIndex={-1}
-          autoComplete="off"
-        />
-
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-primary">Name</label>
-          <input
-            id="name"
-            name="name"
-            value={values.name}
-            onChange={onChange}
-            className="mt-1 w-full rounded-md border px-3 py-2 border-secondary-30 text-primary"
-            placeholder="Your name"
-            autoComplete="name"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-primary">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={values.email}
-            onChange={onChange}
-            className="mt-1 w-full rounded-md border px-3 py-2 border-secondary-30 text-primary"
-            placeholder="you@example.com"
-            autoComplete="email"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium text-primary">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            value={values.message}
-            onChange={onChange}
-            className="mt-1 w-full rounded-md border px-3 py-2 border-secondary-30 text-primary"
-            rows={5}
-            placeholder="What do you need?"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={status.sending}
-          className="rounded-md text-white px-4 py-2 text-sm bg-accent hover:opacity-90 disabled:opacity-60"
-        >
-          {status.sending ? "Opening your email app…" : "Send Email"}
-        </button>
-      </form>
-
-      <div className="mt-6 text-sm text-secondary">
-        Prefer direct?{" "}
-        <a className="underline text-primary" href="mailto:gaughey2000@protonmail.com">gaughey2000@protonmail.com</a>
+    <section className="max-w-2xl mx-auto space-y-8">
+      {/* Header */}
+      <div className="text-center space-y-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-gradient">Get In Touch</h1>
+        <p className="text-lg text-secondary max-w-xl mx-auto leading-relaxed">
+          Have a project in mind? I'd love to hear about it. Drop me a message and I'll get back to you within 24-48 hours.
+        </p>
       </div>
 
-      <p className="text-xs text-secondary mt-4">
-        Tip: If nothing opens, your browser may block email apps. Use the email link above, or paste the copied text.
-      </p>
+      {/* Contact Form */}
+      <div className="bg-white rounded-3xl border border-secondary-30 shadow-sm p-8 md:p-12">
+        {/* Status Messages */}
+        {status.ok && (
+          <div className="mb-6 p-4 rounded-2xl bg-green-50 border border-green-200">
+            <div className="flex items-center gap-3">
+              <div className="text-green-600 text-xl">✅</div>
+              <div className="text-green-800 font-medium">
+                {status.error ? status.error : "Message sent successfully! I'll get back to you within 24-48 hours."}
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {status.error && !status.ok && (
+          <div className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-200">
+            <div className="flex items-center gap-3">
+              <div className="text-red-600 text-xl">⚠️</div>
+              <div className="text-red-800 font-medium">
+                {status.error}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+          {/* Honeypot */}
+          <input
+            type="text"
+            name="website"
+            value={values.website}
+            onChange={onChange}
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+
+          {/* Name Field */}
+          <div className="space-y-2">
+            <label htmlFor="name" className="block text-sm font-semibold text-primary">
+              Name *
+            </label>
+            <input
+              id="name"
+              name="name"
+              value={values.name}
+              onChange={onChange}
+              className="w-full px-4 py-3 rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200"
+              placeholder="Your full name"
+              autoComplete="name"
+              required
+            />
+          </div>
+
+          {/* Email Field */}
+          <div className="space-y-2">
+            <label htmlFor="email" className="block text-sm font-semibold text-primary">
+              Email *
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={values.email}
+              onChange={onChange}
+              className="w-full px-4 py-3 rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200"
+              placeholder="your.email@example.com"
+              autoComplete="email"
+              required
+            />
+          </div>
+
+          {/* Message Field */}
+          <div className="space-y-2">
+            <label htmlFor="message" className="block text-sm font-semibold text-primary">
+              Message *
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={values.message}
+              onChange={onChange}
+              className="w-full px-4 py-3 rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200 resize-none"
+              rows={6}
+              placeholder="Tell me about your project, timeline, and any specific requirements..."
+              required
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={status.sending}
+            className="w-full px-8 py-4 bg-gradient-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+          >
+            {status.sending ? (
+              <span className="flex items-center justify-center gap-2">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                Sending Message...
+              </span>
+            ) : (
+              "Send Message"
+            )}
+          </button>
+        </form>
+
+        {/* Alternative Contact */}
+        <div className="mt-8 pt-8 border-t border-secondary-30 text-center space-y-4">
+          <p className="text-sm text-secondary">
+            Prefer email directly?
+          </p>
+          <a 
+            className="inline-flex items-center gap-2 text-accent hover:text-primary font-medium hover:scale-105 transition-all duration-200"
+            href="mailto:gaughey2000@protonmail.com"
+          >
+            📧 gaughey2000@protonmail.com
+          </a>
+        </div>
+      </div>
+
+      {/* Additional Info */}
+      <div className="bg-gradient-to-br from-accent/5 to-accent/10 rounded-3xl border border-accent/20 p-6 text-center">
+        <p className="text-sm text-secondary">
+          💡 <strong>Tip:</strong> Include details about your project timeline, budget range, and specific requirements to help me provide the best response.
+        </p>
+      </div>
     </section>
   )
 }
