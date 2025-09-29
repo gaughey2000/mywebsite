@@ -47,11 +47,13 @@ export default function Contact() {
       // Clipboard fallback: copy the message so they can paste if needed
       try {
         await navigator.clipboard.writeText(bodyLines.join("\n"))
-      } catch (_) {}
+      } catch {
+        // Clipboard API not available or denied - that's okay
+      }
 
       setStatus({ sending: false, ok: true, error: "" })
       setValues({ name: "", email: "", message: "", website: "" })
-    } catch (err) {
+    } catch {
       setStatus({
         sending: false,
         ok: false,

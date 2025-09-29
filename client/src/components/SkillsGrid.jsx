@@ -42,7 +42,7 @@ import {
   export default function SkillsGrid() {
     return (
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6 mt-8">
-        {skills.map(({ Icon, label }) => (
+        {skills.map(({ Icon, label }) => ( // eslint-disable-line no-unused-vars
           <div
             key={label}
             className="flex flex-col items-center gap-2 p-2 rounded-lg hover:bg-muted transition"

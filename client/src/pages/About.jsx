@@ -21,7 +21,7 @@ export default function About() {
             About <span className="opacity-80">Me</span>
           </h1>
           <p className="text-secondary leading-relaxed">
-            I’m a software dev with skills in all departments and technologies. On this site you can see all of my projects incuding an example e-commerce, buissness website and gym membership
+            I’m a software dev who is on his third year of working in the industry with skills in all departments and technologies. On this site you can see all of my projects incuding an example e-commerce, buissness website and gym membership
             mangement software. My focus as a professional is useability, performance, security, and polished with tidy UX. I aim to get your project done within 5 weeks (depending on size and scope)
             without cutting corners.
           </p>

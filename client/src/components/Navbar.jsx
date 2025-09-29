@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { useTheme } from "../theme/ThemeProvider"
+import { useTheme } from "../theme/hooks"
 
 const base = "px-3 py-2 rounded-md text-sm font-medium"
 const link = ({ isActive }) =>
