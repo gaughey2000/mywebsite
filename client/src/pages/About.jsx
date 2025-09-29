@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import SkillsGrid from "../components/SkillsGrid"
+import SEO from "../components/SEO"
+import { pageConfigs } from "../utils/seo"
 
 function Stat({ value, label }) {
   return (
@@ -12,7 +14,9 @@ function Stat({ value, label }) {
 
 export default function About() {
   return (
-    <section className="space-y-10">
+    <>
+      <SEO pageConfig={pageConfigs.about} />
+      <section className="space-y-10">
       {/* Hero / Intro */}
       <header className="grid grid-cols-1 md:grid-cols-[1fr,320px] gap-8 items-start">
         {/* Left: Intro copy */}
@@ -115,6 +119,7 @@ export default function About() {
           </div>
         </div>
       </section>
-    </section>
+      </section>
+    </>
   )
 }

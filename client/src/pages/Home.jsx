@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
+import SEO from "../components/SEO"
+import { pageConfigs } from "../utils/seo"
 
 const services = [
   { 
@@ -27,20 +29,12 @@ export default function Home() {
   }, [])
 
   return (
-    <section className="space-y-20">
+    <>
+      <SEO pageConfig={pageConfigs.home} />
+      <section className="space-y-20">
       {/* Enhanced Hero Section */}
       <div className={`text-center space-y-8 ${isVisible ? 'animate-in slide-in-from-bottom-8 duration-700' : 'opacity-0'}`}>
         <div className="space-y-6">
-          {/* Status Badge */}
-          <div className="inline-block">
-            <div className="animate-pulse">
-              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-50 text-green-700 border border-green-200">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                Available for hire
-              </span>
-            </div>
-          </div>
-          
           {/* Main Title */}
           <div className="space-y-4">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-gradient">
@@ -142,6 +136,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   )
 }

@@ -39,7 +39,7 @@ export default function Navbar() {
             onClick={randomize}
             className="ml-4 px-4 py-2 rounded-xl text-sm font-medium text-white bg-gradient-primary hover:shadow-lg hover:shadow-accent/30 transform hover:scale-105 active:scale-95 transition-all duration-200"
           >
-            🎨 New Theme
+            New Theme
           </button>
         </div>
       </nav>

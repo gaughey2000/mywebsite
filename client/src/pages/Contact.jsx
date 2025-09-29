@@ -1,4 +1,6 @@
 import { useState } from "react"
+import SEO from "../components/SEO"
+import { pageConfigs } from "../utils/seo"
 
 export default function Contact() {
   const [values, setValues] = useState({ name: "", email: "", message: "", website: "" })
@@ -63,7 +65,9 @@ export default function Contact() {
   }
 
   return (
-    <section className="max-w-2xl mx-auto space-y-8">
+    <>
+      <SEO pageConfig={pageConfigs.contact} />
+      <section className="max-w-2xl mx-auto space-y-8">
       {/* Header */}
       <div className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold text-gradient">Get In Touch</h1>
@@ -198,6 +202,7 @@ export default function Contact() {
           💡 <strong>Tip:</strong> Include details about your project timeline, budget range, and specific requirements to help me provide the best response.
         </p>
       </div>
-    </section>
+      </section>
+    </>
   )
 }
