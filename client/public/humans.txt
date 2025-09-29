@@ -1,0 +1,20 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+    Developer: Connor McGaughey
+    Contact: gaughey2000@protonmail.com
+    Location: United Kingdom
+
+# TECHNOLOGY COLOPHON
+    Frontend: React, Vite, Tailwind CSS
+    Backend: Node.js, Express.js
+    Database: PostgreSQL, MongoDB
+    Deployment: [Your hosting provider]
+    Version Control: Git
+    IDE: [Your preferred IDE]
+
+# THANKS
+    Icons: React Icons
+    Fonts: System Fonts
+    Tools: Vite, ESLint, Nodemon

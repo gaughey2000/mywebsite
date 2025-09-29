@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react"
 import { projects } from "../data/projects"
 import ProjectCard from "../components/ProjectCard"
+import SEO from "../components/SEO"
+import { pageConfigs, generateProjectStructuredData } from "../utils/seo"
 
 export default function Projects() {
   const allTech = useMemo(() => {
@@ -12,8 +14,15 @@ export default function Projects() {
   const [filter, setFilter] = useState("All")
   const filtered = filter === "All" ? projects : projects.filter(p => p.tech?.includes(filter))
 
+  const projectStructuredData = generateProjectStructuredData(filtered)
+
   return (
-    <section className="space-y-12">
+    <>
+      <SEO 
+        pageConfig={pageConfigs.projects} 
+        structuredData={projectStructuredData}
+      />
+      <section className="space-y-12">
       {/* Header */}
       <div className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold text-gradient">My Projects</h1>
@@ -84,6 +93,7 @@ export default function Projects() {
           </a>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   )
 }
