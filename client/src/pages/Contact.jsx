@@ -123,7 +123,7 @@ export default function Contact() {
               name="name"
               value={values.name}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200"
+              className="w-full px-4 py-4 touch-target rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200"
               placeholder="Your full name"
               autoComplete="name"
               required
@@ -141,7 +141,7 @@ export default function Contact() {
               type="email"
               value={values.email}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200"
+              className="w-full px-4 py-4 touch-target rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200"
               placeholder="your.email@example.com"
               autoComplete="email"
               required
@@ -158,7 +158,7 @@ export default function Contact() {
               name="message"
               value={values.message}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200 resize-none"
+              className="w-full px-4 py-4 rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200 resize-none min-h-[120px]"
               rows={6}
               placeholder="Tell me about your project, timeline, and any specific requirements..."
               required
@@ -169,7 +169,7 @@ export default function Contact() {
           <button
             type="submit"
             disabled={status.sending}
-            className="w-full px-8 py-4 bg-gradient-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+            className="w-full touch-target px-8 py-4 bg-gradient-primary text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
           >
             {status.sending ? (
               <span className="flex items-center justify-center gap-2">
