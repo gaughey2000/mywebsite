@@ -23,3 +23,5 @@ yarn-error.log*
 client/.vite/
 .DS_Store
 **/.DS_Store
+
+.git-tools-venv/
