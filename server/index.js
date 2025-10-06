@@ -50,11 +50,13 @@ app.post('/api/contact', async (req, res) => {
       return res.status(400).json({ ok: false, error: 'Invalid input' })
     }
 
+    const safe = (s) => String(s || '').replace(/[\r\n<>]/g, '').trim()
+
     const mail = {
-      from: `"${process.env.FROM_NAME || 'Website'}" <${process.env.FROM_EMAIL}>`,
+      from: `"${safe(process.env.FROM_NAME || 'Website')}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
       to: process.env.TO_EMAIL,
-      subject: `New inquiry from ${name}`,
-      replyTo: `"${name}" <${email}>`, // lets you click Reply in your inbox
+      subject: `New inquiry from ${safe(name)}`,
+      replyTo: `"${safe(name)}" <${safe(email)}>`, // lets you click Reply in your inbox
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n---\nSent from website contact form.`,
     }
 

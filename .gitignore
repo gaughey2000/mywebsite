@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Builds
+client/dist/
+server/dist/
+dist/
+
+# Env files
+.env
+*/.env
+server/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vite / tooling caches
+.vite/
+client/.vite/
+.DS_Store
+**/.DS_Store

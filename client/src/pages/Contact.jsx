@@ -28,7 +28,7 @@ export default function Contact() {
     }
     setStatus({ sending: true, ok: false, error: "" })
 
-    const to = "cmcgaughey2000@icloud.com" 
+    const to = "cmcgaughey2000@icloud.com"
     const subject = `New inquiry from ${values.name} (${values.email})`
     const bodyLines = [
       `Name: ${values.name}`,
@@ -43,24 +43,42 @@ export default function Contact() {
     const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join("\n"))}`
 
     try {
-      // Try opening the user's email client with a prefilled draft
-      window.location.href = mailto
+      // Try server API first
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values)
+      })
 
-      // Clipboard fallback: copy the message so they can paste if needed
-      try {
-        await navigator.clipboard.writeText(bodyLines.join("\n"))
-      } catch {
-        // Clipboard API not available or denied - that's okay
+      if (res.ok) {
+        setStatus({ sending: false, ok: true, error: "" })
+        setValues({ name: "", email: "", message: "", website: "" })
+        return
       }
 
+      // Fallback to mailto if server returns non-200
+      window.location.href = mailto
+      try {
+        await navigator.clipboard.writeText(bodyLines.join("\n"))
+      } catch {}
       setStatus({ sending: false, ok: true, error: "" })
       setValues({ name: "", email: "", message: "", website: "" })
     } catch {
-      setStatus({
-        sending: false,
-        ok: false,
-        error: "Couldn’t open your email app. Please use the email link below.",
-      })
+      // Network or other error: fallback to mailto
+      try {
+        window.location.href = mailto
+        try {
+          await navigator.clipboard.writeText(bodyLines.join("\n"))
+        } catch {}
+        setStatus({ sending: false, ok: true, error: "" })
+        setValues({ name: "", email: "", message: "", website: "" })
+      } catch {
+        setStatus({
+          sending: false,
+          ok: false,
+          error: "Couldn’t submit your message. Please use the email link below.",
+        })
+      }
     }
   }
 
