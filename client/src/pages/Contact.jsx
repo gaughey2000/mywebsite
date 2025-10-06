@@ -12,9 +12,15 @@ export default function Contact() {
   }
 
   const validate = () => {
-    if (!values.name.trim()) return "Please enter your name."
+    const nameLen = values.name.trim().length
+    const msgLen = values.message.trim().length
+    
+    if (!nameLen) return "Please enter your name."
+    if (nameLen > 100) return "Name must be 100 characters or less."
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) return "Please enter a valid email."
-    if (values.message.trim().length < 10) return "Please write a little more detail."
+    if (values.email.length > 254) return "Email address is too long."
+    if (msgLen < 10) return "Please write a little more detail (at least 10 characters)."
+    if (msgLen > 5000) return "Message is too long (max 5000 characters)."
     if (values.website) return "Spam detected."
     return ""
   }
@@ -117,6 +123,7 @@ export default function Contact() {
               onChange={onChange}
               className="w-full px-4 py-4 touch-target rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200"
               placeholder="Your full name"
+              maxLength={100}
               autoComplete="name"
               required
             />
@@ -135,6 +142,7 @@ export default function Contact() {
               onChange={onChange}
               className="w-full px-4 py-4 touch-target rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200"
               placeholder="your.email@example.com"
+              maxLength={254}
               autoComplete="email"
               required
             />
@@ -152,6 +160,7 @@ export default function Contact() {
               onChange={onChange}
               className="w-full px-4 py-4 rounded-xl border-2 border-secondary-30 text-primary placeholder-secondary/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all duration-200 resize-none min-h-[120px]"
               rows={6}
+              maxLength={5000}
               placeholder="Tell me about your project, timeline, and any specific requirements..."
               required
             />

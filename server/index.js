@@ -46,8 +46,17 @@ app.post('/api/contact', async (req, res) => {
     if (website) return res.status(400).json({ ok: false, error: 'Spam detected' })
 
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    if (!name.trim() || !validEmail || message.trim().length < 10 || message.trim().length > 5000) {
-      return res.status(400).json({ ok: false, error: 'Invalid input' })
+    const nameLen = name.trim().length
+    const msgLen = message.trim().length
+    
+    if (!nameLen || nameLen > 100) {
+      return res.status(400).json({ ok: false, error: 'Name must be 1-100 characters' })
+    }
+    if (!validEmail || email.length > 254) {
+      return res.status(400).json({ ok: false, error: 'Invalid email address' })
+    }
+    if (msgLen < 10 || msgLen > 5000) {
+      return res.status(400).json({ ok: false, error: 'Message must be 10-5000 characters' })
     }
 
     const safe = (s) => String(s || '').replace(/[\r\n<>]/g, '').trim()
