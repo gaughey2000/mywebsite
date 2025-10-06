@@ -28,22 +28,8 @@ export default function Contact() {
     }
     setStatus({ sending: true, ok: false, error: "" })
 
-    const to = "cmcgaughey2000@icloud.com"
-    const subject = `New inquiry from ${values.name} (${values.email})`
-    const bodyLines = [
-      `Name: ${values.name}`,
-      `Email: ${values.email}`,
-      "",
-      "Message:",
-      values.message,
-      "",
-      "---",
-      "Sent from the contact form on your website.",
-    ]
-    const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join("\n"))}`
-
     try {
-      // Try server API first
+      // Submit to server API
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -53,32 +39,20 @@ export default function Contact() {
       if (res.ok) {
         setStatus({ sending: false, ok: true, error: "" })
         setValues({ name: "", email: "", message: "", website: "" })
-        return
-      }
-
-      // Fallback to mailto if server returns non-200
-      window.location.href = mailto
-      try {
-        await navigator.clipboard.writeText(bodyLines.join("\n"))
-      } catch {}
-      setStatus({ sending: false, ok: true, error: "" })
-      setValues({ name: "", email: "", message: "", website: "" })
-    } catch {
-      // Network or other error: fallback to mailto
-      try {
-        window.location.href = mailto
-        try {
-          await navigator.clipboard.writeText(bodyLines.join("\n"))
-        } catch {}
-        setStatus({ sending: false, ok: true, error: "" })
-        setValues({ name: "", email: "", message: "", website: "" })
-      } catch {
-        setStatus({
-          sending: false,
-          ok: false,
-          error: "Couldn’t submit your message. Please use the email link below.",
+      } else {
+        const data = await res.json().catch(() => ({}))
+        setStatus({ 
+          sending: false, 
+          ok: false, 
+          error: data.error || "Failed to send message. Please try the email link below." 
         })
       }
+    } catch (err) {
+      setStatus({
+        sending: false,
+        ok: false,
+        error: "Network error. Please check your connection or use the email link below.",
+      })
     }
   }
 

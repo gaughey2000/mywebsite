@@ -14,7 +14,7 @@ const app = express()
 
 // security & basics
 app.use(helmet())
-app.use(express.json())
+app.use(express.json({ limit: '20kb' }))
 
 // CORS for local dev (client on 5173)
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173'
@@ -46,7 +46,7 @@ app.post('/api/contact', async (req, res) => {
     if (website) return res.status(400).json({ ok: false, error: 'Spam detected' })
 
     const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-    if (!name.trim() || !validEmail || message.trim().length < 10) {
+    if (!name.trim() || !validEmail || message.trim().length < 10 || message.trim().length > 5000) {
       return res.status(400).json({ ok: false, error: 'Invalid input' })
     }
 
@@ -63,7 +63,13 @@ app.post('/api/contact', async (req, res) => {
     await transporter.sendMail(mail)
     res.json({ ok: true })
   } catch (err) {
-    console.error('contact error:', err)
+    // Log safely without exposing stack traces in production
+    const isProd = process.env.NODE_ENV === 'production'
+    if (isProd) {
+      console.error('contact error:', err.message)
+    } else {
+      console.error('contact error:', err)
+    }
     res.status(500).json({ ok: false, error: 'Server error' })
   }
 })
