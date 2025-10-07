@@ -3,7 +3,7 @@ export const siteConfig = {
   name: "Connor McGaughey",
   title: "Connor McGaughey - Full Stack Software Developer",
   description: "Full Stack Software Developer specializing in React, Node.js, and modern web applications. Available for development roles and freelance projects in the UK.",
-  url: "https://connormcgaughey.com", // Update with your actual domain
+  url: "https://connor-mcgaughey.co.uk",
   author: {
     name: "Connor McGaughey",
     email: "gaughey2000@protonmail.com",
