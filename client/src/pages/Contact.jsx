@@ -53,7 +53,7 @@ export default function Contact() {
           error: data.error || "Failed to send message. Please try the email link below." 
         })
       }
-    } catch (err) {
+    } catch {
       setStatus({
         sending: false,
         ok: false,
@@ -182,19 +182,6 @@ export default function Contact() {
             )}
           </button>
         </form>
-
-        {/* Alternative Contact */}
-        <div className="mt-8 pt-8 border-t border-secondary-30 text-center space-y-4">
-          <p className="text-sm text-secondary">
-            Prefer email directly?
-          </p>
-          <a 
-            className="inline-flex items-center gap-2 text-accent hover:text-primary font-medium hover:scale-105 transition-all duration-200"
-            href="mailto:gaughey2000@protonmail.com"
-          >
-            📧 gaughey2000@protonmail.com
-          </a>
-        </div>
       </div>
 
       {/* Additional Info */}

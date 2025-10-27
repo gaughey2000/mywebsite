@@ -52,7 +52,7 @@ import {
     }
   ]
   
-  function SkillItem({ Icon, label, color, delay = 0 }) {
+  function SkillItem({ Icon: SkillIcon, label, color, delay = 0 }) {
     return (
       <div
         className="group bg-white rounded-2xl border border-secondary-30 p-6 hover:shadow-lg hover:shadow-accent/10 hover:border-accent/30 transform hover:-translate-y-1 transition-all duration-300"
@@ -62,7 +62,7 @@ import {
       >
         <div className="flex flex-col items-center gap-4 text-center">
           <div className="relative">
-            <Icon 
+            <SkillIcon 
               className="w-12 h-12 group-hover:scale-110 transition-transform duration-300" 
               style={{ color }}
             />
