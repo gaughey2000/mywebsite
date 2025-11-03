@@ -12,6 +12,9 @@ const __dirname = path.dirname(__filename)
 
 const app = express()
 
+// trust proxy for Railway/production (needed for rate limiting behind proxy)
+app.set('trust proxy', 1)
+
 // security & basics
 app.use(helmet())
 app.use(express.json({ limit: '20kb' }))
