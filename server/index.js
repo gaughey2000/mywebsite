@@ -43,6 +43,7 @@ app.get('/api/health', (req, res) => res.json({ ok: true }))
 // contact endpoint
 app.post('/api/contact', async (req, res) => {
   try {
+    console.log('Contact form submission received')
     const { name = '', email = '', message = '', website = '' } = req.body || {}
 
     // honeypot: bots often fill hidden fields
@@ -72,7 +73,9 @@ app.post('/api/contact', async (req, res) => {
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n---\nSent from website contact form.`,
     }
 
+    console.log('Attempting to send email...')
     await transporter.sendMail(mail)
+    console.log('Email sent successfully')
     res.json({ ok: true })
   } catch (err) {
     // Log safely without exposing stack traces in production
