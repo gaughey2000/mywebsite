@@ -3,7 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
-import nodemailer from 'nodemailer'
+import * as brevo from '@getbrevo/brevo'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -26,18 +26,9 @@ app.use(cors({ origin: [CLIENT_ORIGIN], methods: ['POST', 'GET', 'OPTIONS'] }))
 // rate limit
 app.use('/api/', rateLimit({ windowMs: 60_000, max: 10 }))
 
-// SMTP transport
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT || 587),
-  secure: Number(process.env.SMTP_PORT) === 465, // true if 465
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  },
-  connectionTimeout: 10000, // 10 second timeout
-  greetingTimeout: 10000
-})
+// Brevo API client
+const apiInstance = new brevo.TransactionalEmailsApi()
+apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, process.env.BREVO_API_KEY)
 
 // quick health check
 app.get('/api/health', (req, res) => res.json({ ok: true }))
@@ -67,16 +58,18 @@ app.post('/api/contact', async (req, res) => {
 
     const safe = (s) => String(s || '').replace(/[\r\n<>]/g, '').trim()
 
-    const mail = {
-      from: `"${safe(process.env.FROM_NAME || 'Website')}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
-      to: process.env.TO_EMAIL,
-      subject: `New inquiry from ${safe(name)}`,
-      replyTo: `"${safe(name)}" <${safe(email)}>`, // lets you click Reply in your inbox
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n---\nSent from website contact form.`,
+    const sendSmtpEmail = new brevo.SendSmtpEmail()
+    sendSmtpEmail.sender = { 
+      name: process.env.FROM_NAME || 'Website',
+      email: process.env.FROM_EMAIL 
     }
+    sendSmtpEmail.to = [{ email: process.env.TO_EMAIL }]
+    sendSmtpEmail.replyTo = { name: safe(name), email: safe(email) }
+    sendSmtpEmail.subject = `New inquiry from ${safe(name)}`
+    sendSmtpEmail.textContent = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n---\nSent from website contact form.`
 
-    console.log('Attempting to send email...')
-    await transporter.sendMail(mail)
+    console.log('Attempting to send email via Brevo API...')
+    await apiInstance.sendTransacEmail(sendSmtpEmail)
     console.log('Email sent successfully')
     res.json({ ok: true })
   } catch (err) {
