@@ -3,6 +3,7 @@ import SEO from "../components/SEO"
 import { pageConfigs } from "../utils/seo"
 
 export default function Contact() {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
   const [values, setValues] = useState({ name: "", email: "", message: "", website: "" })
   const [status, setStatus] = useState({ sending: false, ok: false, error: "" })
 
@@ -36,7 +37,7 @@ export default function Contact() {
 
     try {
       // Submit to server API
-      const res = await fetch('/api/contact', {
+      const res = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values)
